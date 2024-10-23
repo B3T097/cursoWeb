@@ -1,109 +1,23 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Curso</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <h1>Hola mundo cruel</h1>
-    <ol>
-      <li>Uno</li>
-      <li>dos</li>
-    </ol>
-
-    <ul>
-      <li>Desordenada</li>
-    </ul>
-
-    <div class="container">
-      <ul>
-        <li>1</li>
-        <li>2</li>
-        <li>3</li>
-        <li>4</li>
-        <li>5</li>
-        <li>6</li>
-        <li>7</li>
-        <li>8</li>
-      </ul>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estilos</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="content">
+        <div class="cubo">Cubo</div>
+        <div class="cubo"></div>
+        <div class="cubo"></div>
+        <div class="cubo"></div>
     </div>
-
-    <a href="https://www.google.com" target="_blank">Google</a>
-    <a href="mailto:alberto@pecuarios.com">Mi correo</a>
-    <a href="tel:+2311459623">Mi numero</a>
-
-    <img src="assets/images/fonkjasdo.png" alt="sol" width="500" />
-
-    <table>
-      <th>Nombre</th>
-      <th>Apellido</th>
-      <tr>
-        <td style="border: 1px solid red">Alberto</td>
-        <td style="border: 1px solid red">Lazaro</td>
-      </tr>
-      <tr>
-        <td style="border: 1px solid red">Daniel</td>
-        <td style="border: 1px solid red">Aros</td>
-      </tr>
-      <tr>
-        <td style="border: 1px solid red">Perla</td>
-        <td style="border: 1px solid red">Salazar</td>
-      </tr>
-    </table>
-
-    <form action="assets" method="post">
-        <div class="content-input">
-            <input type="text" name="nombre" id="txtNombre" required placeholder="Nombre del usuario">
-        </div>
-        <div class="content-input">
-            <label for="txtEdad">Edad del usuario</label>
-            <input type="number" name="Edad" id="txtEdad">
-        </div>
-        <input type="email" name="email" id="email">
-        <div class="content-input">
-            <label for="hombre">Hombre</label>
-            <input type="radio" name="sexo" id="hombre">
-        </div>
-        <div class="content-input">
-            <label for="mujer">Mujer</label>
-            <input type="radio" name="sexo" id="mujer">
-        </div>
-        <div class="content-input">
-            <label for="otro">Otro</label>
-            <input type="radio" name="sexo" id="otro">
-        </div>
-
-
-        <div class="content-input">
-            <label for="manzana">Manzana</label>
-            <input type="checkbox" name="fruta[]" id="manzana">
-        </div>
-        <div class="content-input">
-            <label for="platano">platano</label>
-            <input type="checkbox" name="fruta[]" id="platano">
-        </div>
-        <div class="content-input">
-            <label for="sandia">sandia</label>
-            <input type="checkbox" name="fruta[]" id="sandia">
-        </div>
-        <div class="content-input">
-            <label for="melon">melon</label>
-            <input type="checkbox" name="fruta[]" id="melon">
-        </div>
-
-        <textarea name="txtDescripcion" id="txtDescripcion" cols="30" rows="3"></textarea>
-
-        <select name="frutas" id="fruta">
-            <option value="manzana">Manzana</option>
-            <option value="platano">platano</option>
-            <option value="melon">melon</option>
-            <option value="sandia">sandia</option>
-        </select>
-
-        <input type="submit" value="Enviar">
-        <button type="submit">Enviar</button>
-    </form>
-  </body>
+    <div class="content-flex">
+        <div class="cubo">1</div>
+        <div class="cubo">2</div>
+        <div class="cubo">3</div>
+        <div class="cubo">4</div>
+    </div>
+</body>
 </html>
