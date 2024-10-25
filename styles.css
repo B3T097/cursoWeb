@@ -1,0 +1,52 @@
+body {
+    /* background-color es para agregar un color de fondo al elemnto */
+    background-color: #efe7f1;
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: center;
+}
+div.padre {
+    /* max-width es para dar un with maximo al contenedor */
+    max-width: 350px;
+    /* width es para dar un with predefinido al contenedor */
+    width: 350px;
+    /* Boder recibe 3 valores obligatorios el primero es el ancho del border (3px) el segundo es el estilo del border (solid) y el tercero es el color del border(red) */
+    border: 3px solid #efb7fd;
+    /* border-radius nor permite redondear un elemento, usar px o rem dara un estilo suave al redondeado, usar porcentaje hara un curveado mas pronunciado permitiendo hacer un circulo con un 50% */
+    border-radius: 30px;
+    /* Margin es el espacio entre el border del contenedor y el exterior */
+    margin-left: 2rem;
+    margin-right: 2rem;
+    margin-top: 3rem;
+     /* padding es el espacio entre el border del contenedor y el interior */
+    padding: 2rem;
+    /* opacity: 0.5; */
+    .hijo {
+        border: 3px dashed #efb7fd;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        border-radius: 30px;
+        /* Display flex convierte los elemntos hijos en elementos flexibles permitiendo alinarlos a voluntad */
+        display: flex;
+        /* flex-direction indica la direccion para acomodar los elementos (column, row, column-reverse, row-reverse) */
+        flex-direction: column;
+        /* justify-content permite alinear los elementos horizontalmente (flex-start, flex-end, center, etc) */
+        justify-content: center;
+        /* justify-content permite alinear los elementos verticalmente (flex-start, flex-end, center, etc) */
+        align-items: center;
+        span {
+            /* font-size da el tamaño del texto */
+            font-size: 25px;
+        }
+        .elemento {
+            background-color: orange;
+            /* height indica la altura del contenedor */
+            height: 10px;
+            width: 80%;
+            margin: 1rem;
+            padding: 1rem;
+            border-radius: 30px;
+        }
+    }
+}
