@@ -1,0 +1,114 @@
+body {
+    background-color: beige;
+}
+
+.content {
+    margin: 2rem;
+    .galery{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        .principal{
+            width: 100%;
+            height: 40vh;
+            overflow-y: hidden;
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+
+        .todas{
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+    }
+}
+
+.marco{
+    background-color: white;
+    margin: 10px;
+    padding: 10px;
+    border: 1rem solid black;
+    min-width: 200px;
+    width: 100%;
+    max-width: 400px;
+    border-radius: 10px;
+    transition: scale 1s;
+    position: relative;
+    img{
+        width: 100%;
+    }
+}
+
+.marco:hover {
+    scale: 1.1;
+    transition: scale 1s;
+}
+
+.marco:nth-child(odd){
+    background-color: rgb(205, 205, 255);
+}
+.marco:nth-child(even){
+    background-color: rgb(255, 199, 199);
+}
+
+.marco::before{
+    content: "";
+    background-color: red;
+    width: 80%;
+    height: 5px;
+    position: absolute;
+    top: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.marco::after{
+    content: "";
+    background-color: blue;
+    width: 80%;
+    height: 5px;
+    position: absolute;
+    bottom: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+@media (min-width: 720px){
+    .marco {
+        width: calc(50% - 40px - 2rem);
+    }
+}
+
+@media (min-width: 1024px){
+    .marco {
+        width: calc(33% - 40px - 2rem);
+    }
+}
+
+@media (min-width: 1440px){
+    .marco {
+        width: calc(20% - 40px - 2rem);
+    }
+}
+
+.contet-flex{
+    border: 2px solid red;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    .card {
+        height: 4rem;
+        flex: 1;
+        border: 1px solid blue;
+        transition: all 1s;
+    }
+
+    .card:hover {
+        flex: 2;
+        transition: all 1s;
+    }
+}
