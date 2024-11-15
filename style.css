@@ -1,0 +1,75 @@
+.controls {
+    form{
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+        flex-wrap: wrap;
+        .form-control {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            width: calc(50% - 5px);
+            input, select{
+                border-radius: 8px;
+                padding: 5px;
+            }
+        }
+        .btnSubmit{ 
+            padding: 5px;
+            background-color: white;
+            border: 2px solid gray;
+            border-radius: 10px;
+            width: 5rem;
+            margin-left: auto;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+    }
+}
+
+.apiContent{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 1.5rem;
+    align-items: center;
+    justify-content: center;
+    .card {
+        display: flex;
+        flex-direction: column;
+        width: 90%;
+        border: 3px solid black;
+        padding: 10px;
+        border-radius: 10px;
+        .imagen img{
+            max-width: 100%;
+        }
+        .title {
+            font-size: 1rem;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .autor{
+            font-style: italic;
+            font-size: 15px;
+            margin-bottom: 10px;
+        }
+
+        .descripsion{
+            margin-bottom: 10px;
+        }
+
+        .btnVer{
+            border-radius: 10px;
+            background-color: aquamarine;
+            color: black;
+            padding: 7px 10px;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: 2rem;
+        }
+    }
+}

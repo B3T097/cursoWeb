@@ -1,128 +1,85 @@
-document.addEventListener('DOMContentLoaded', function(event){
-    // let usuarios = [
-    //     {
-    //         id: 1,
-    //         gender: 'H',
-    //         name: 'Alberto',
-    //         lastname: 'Lazaro'
-    //     },
-    //     {
-    //         id: 2,
-    //         gender: 'M',
-    //         name: 'Perla',
-    //         lastname: 'Salazar'
-    //     },
-    //     {
-    //         id: 3,
-    //         gender: 'H',
-    //         name: 'Daniel',
-    //         lastname: 'Aros'
-    //     },
-    //     {
-    //         id: 4,
-    //         gender: 'H',
-    //         name: 'Rodrigo',
-    //         lastname: 'Javier'
-    //     },
-    // ];
+// DECLARACION DE VARIABLES
+const apiKey = '8e19461261c0489d856b9dacd6871b19';
+const language = 'es';
+const urlBase = 'https://newsapi.org/v2/everything?language=' + language;
+const template = `
+<div class="card">
+    <div class="imagen">
+        <img src="__imagen__" alt="portada" srcset="">
+    </div>
+    <div class="title">__titulo__</div>
+    <div class="autor">__autor__</div>
+    <div class="descripsion">__descripcion__</div>
+    <a class="btnVer" href="__link__">VER</a>
+</div>`;
 
-    // let frutas = [ 'manzana', 'naranja', 'mandarina', 'sandia', 'uva' ];
-    // for (let i = 0; i < frutas.length; i++) {
-    //     let fruta = frutas[i];
-    //     // console.log(fruta);
-    // }
+// Evento para asegurar que la pagina ya cargo
+document.addEventListener('DOMContentLoaded', function(){
 
-    // frutas.forEach((fruta) => console.log(fruta))
-
-    // console.log(usuarios);
-
-    // let nombres = usuarios.map((usuario) => {
-    //     return `${ usuario.name } ${ usuario.lastname }`;
-    // })
-    // let nombres = usuarios.map((usuario) => usuario.name + ' ' + usuario.lastname)
-
-    // console.log(nombres);
-
-
-
-    // let mujeres = usuarios.filter((usuario) => usuario.gender == 'M');
-
-    // console.log('Mujeres', mujeres);
-
-    // let sumaIds = usuarios.reduce((valorAnterior, itemActual, index) => {
-    //     return valorAnterior + itemActual.id;
-    // }, 0 );
-
-    // usuarios.push({
-    //     id: 5,
-    //     gender: 'M',
-    //     name: 'sofia',
-    //     lastname: 'perez'
-    // });
-
-    // console.log(usuarios);
-
-    // usuarios.pop();
-
-    // console.log(usuarios);
-
-    // console.log(usuarios.slice(2, 3));
-
-    // console.log(usuarios);
-
-    // console.log(usuarios.splice(2, 1));
-
-    // console.log(usuarios);
-
-    // console.log('suma', sumaIds);
-
-    // let cadenaDeTexto = 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas consectetur nisi doloremque. Rerum corrupti sint architecto eius. Ipsa nesciunt animi sequi fuga blanditiis consectetur, ad, doloribus dignissimos quod ea aut!';
-
-    // console.log(cadenaDeTexto.slice(0, 20));
-
-    // console.log(cadenaDeTexto.includes('dolor'));
-
-    // console.log(cadenaDeTexto.replace('dolor', 'Beto'));
-
-    // console.log(cadenaDeTexto.toUpperCase());
-
-
-    // console.log(cubos);
-    addEvents();
-    
-    let boton = document.querySelector('#btnAdd');
-    
-    boton.addEventListener('click', function(event){
-        const template = '<div class="cube"></div>';
-        let contenedor = document.querySelector('.container');
-        contenedor.innerHTML = contenedor.innerHTML + template; 
-        addEvents();
-    })
-    
-});
-
-function addEvents(){
-    const colores = ['rojo', 'azul', 'verde'];
-    let cubos = document.querySelectorAll('.cube');
-    cubos.forEach((cubo) => {
-        cubo.addEventListener('click', function(event){
-            let existeRojo = cubo.classList.contains(colores[0]);
-            let existeAzul = cubo.classList.contains(colores[1]);
-            let existeVerde = cubo.classList.contains(colores[2]);
-
-            if (existeRojo) {
-                cubo.classList.remove(colores[0]);
-                cubo.classList.add(colores[1]);
-            } else if (existeAzul) {
-                cubo.classList.remove(colores[1]);
-                cubo.classList.add(colores[2]);
-            } else if (existeVerde) {
-                cubo.classList.remove(colores[2]);
-                cubo.classList.add(colores[0]);
-            } else {
-                cubo.classList.add(colores[0])
-            }
-        })
+    // Recuperar el formulario
+    const form = document.querySelector('#formApi');
+    // Escuchamos el evento Submit o de envio
+    form.addEventListener('submit', function (event) {
+        event.preventDefault();
+        // Recuperamos los valores de los inputs
+        let inputBusqueda = document.querySelector('#busqueda').value;
+        let inputOrden = document.querySelector('#orderBy').value;
+        let inputFechaInicio = document.querySelector('#fecha_inicio').value;
+        let inputFechaFin = document.querySelector('#fecha_fin').value;
         
+        // Armamos nuestra URL
+        let urlFinal = urlBase;
+        if (inputBusqueda != '') {
+            urlFinal += '&q=' + inputBusqueda;
+        }
+
+        if (inputFechaInicio != '') {
+            urlFinal += '&from=' + inputFechaInicio;
+        }
+
+        if (inputFechaFin != '') {
+            urlFinal += '&to=' + inputFechaFin;
+        }
+
+        urlFinal += '&orderBy=' + inputOrden;
+        urlFinal += '&pageSize=50';
+        urlFinal += '&searchIn=title';
+        urlFinal += '&apiKey=' + apiKey;
+
+        console.log(urlFinal);
+
+        // Hacemos la peticion HTTP
+        fetch(urlFinal)
+            .then((response) => {
+                 response.json()
+                    .then((articulos) => {
+                        // Obtenemos los articulos
+                        let articles = articulos.articles;
+                        // Recuperamos el contenedor de las cartas
+                        const content = document.querySelector('.apiContent');
+                        // limpiamos el contenedor
+                        content.innerHTML = '';
+                        if (articles.length == 0) {
+                            content.innerHTML = 'No se encontraron resultados.';
+                        } else {
+                            articles.forEach((article) => {
+                                // Armamos nuestra carta 
+                                let templateAux = template;
+                                templateAux = templateAux.replace('__imagen__', article.urlToImage);
+                                templateAux = templateAux.replace('__titulo__', article.title);
+                                templateAux = templateAux.replace('__autor__', article.author);
+                                templateAux = templateAux.replace('__descripcion__', article.description);
+                                templateAux = templateAux.replace('__link__', article.url);
+
+                                // Agregamos nuestra carta al DOM
+                                // content.innerHTML = content.innerHTML + templateAux;
+                                content.innerHTML += templateAux;
+                            })
+                        }
+                    })
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     })
-}
+})
