@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peticiones HTTP</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="index.js" type="module"></script>
+</head>
+<body>
+    <div class="content">
+        <!-- <p>Ejemplo: <span>GET https://newsapi.org/v2/everything?q=apple&from=2024-11-14&to=2024-11-14&sortBy=popularity&apiKey=8e19461261c0489d856b9dacd6871b19z</span></p> -->
+        <h1>Api de Noticias</h1>
+        <div class="controls">
+            <form id="formApi">
+                <div class="form-control">
+                    <label for="">Busqueda</label>
+                    <input type="text" name="Busqueda" id="busqueda" value="Navidad">
+                </div>
+                <div class="form-control">
+                    <label for="orderBy">Orden</label>
+                    <select name="orderBy" id="orderBy">
+                        <option value="relevancy">Relevancia</option>
+                        <option value="popularity">Popularidad</option>
+                        <option value="publishedAt" selected>Fecha de publicacion</option>
+                    </select>
+                </div>
+                <div class="form-control">
+                    <label for="fecha_inicio">Fecha Inicio</label>
+                    <input type="date" name="fecha_inicio" id="fecha_inicio" value="2024-11-01">
+                </div>
+                <div class="form-control">
+                    <label for="fecha_fin">Fecha Fin</label>
+                    <input type="date" name="fecha_fin" id="fecha_fin" value="2024-11-10">
+                </div>
+                <button type="submit" class="btnSubmit">Consultar</button>
+            </form>
+        </div>
+        <div class="apiContent">
+            
+        </div>
+    </div>
+</body>
+</html>

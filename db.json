@@ -1,0 +1,36 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "name": "Aros"
+    },
+    {
+      "id": "2",
+      "name": "Perla Cecilia"
+    },
+    {
+      "id": "3",
+      "name": "Rodrigo Javier"
+    },
+    {
+      "id": "4",
+      "name": "Alberto Lazaro"
+    },
+    {
+      "id": "5",
+      "name": "Beto"
+    },
+    {
+      "id": "6",
+      "name": "Javier"
+    },
+    {
+      "id": "7",
+      "name": "Adri"
+    },
+    {
+      "id": "8",
+      "name": "Patroclo"
+    }
+  ]
+}

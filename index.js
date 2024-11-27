@@ -1,85 +1,113 @@
 // DECLARACION DE VARIABLES
-const apiKey = '8e19461261c0489d856b9dacd6871b19';
-const language = 'es';
-const urlBase = 'https://newsapi.org/v2/everything?language=' + language;
+const urlBase = 'http://localhost:3000/'; 
 const template = `
 <div class="card">
     <div class="imagen">
-        <img src="__imagen__" alt="portada" srcset="">
+        <img src="foto.webp" width="150" alt="portada" srcset="" />
     </div>
-    <div class="title">__titulo__</div>
-    <div class="autor">__autor__</div>
-    <div class="descripsion">__descripcion__</div>
-    <a class="btnVer" href="__link__">VER</a>
+    <div class="nombre">__id__ : __nombre__</div>
 </div>`;
 
-// Evento para asegurar que la pagina ya cargo
-document.addEventListener('DOMContentLoaded', function(){
+// VARIABLES GLOBALEs
+let ultimoId = 0;
+let usuarios = [];
 
+// Evento para asegurar que la pagina ya cargo
+document.addEventListener('DOMContentLoaded', function () {
+    getData();
     // Recuperar el formulario
     const form = document.querySelector('#formApi');
     // Escuchamos el evento Submit o de envio
     form.addEventListener('submit', function (event) {
         event.preventDefault();
         // Recuperamos los valores de los inputs
-        let inputBusqueda = document.querySelector('#busqueda').value;
-        let inputOrden = document.querySelector('#orderBy').value;
-        let inputFechaInicio = document.querySelector('#fecha_inicio').value;
-        let inputFechaFin = document.querySelector('#fecha_fin').value;
-        
-        // Armamos nuestra URL
-        let urlFinal = urlBase;
-        if (inputBusqueda != '') {
-            urlFinal += '&q=' + inputBusqueda;
-        }
+        let inputNombre = document.querySelector('#nombre').value;
+        const urlFinal = urlBase + 'users';
 
-        if (inputFechaInicio != '') {
-            urlFinal += '&from=' + inputFechaInicio;
-        }
-
-        if (inputFechaFin != '') {
-            urlFinal += '&to=' + inputFechaFin;
-        }
-
-        urlFinal += '&orderBy=' + inputOrden;
-        urlFinal += '&pageSize=50';
-        urlFinal += '&searchIn=title';
-        urlFinal += '&apiKey=' + apiKey;
-
-        console.log(urlFinal);
-
+        // let form = new FormData();
+        // form.append('nombre', inputNombre);
         // Hacemos la peticion HTTP
-        fetch(urlFinal)
-            .then((response) => {
-                 response.json()
-                    .then((articulos) => {
-                        // Obtenemos los articulos
-                        let articles = articulos.articles;
-                        // Recuperamos el contenedor de las cartas
-                        const content = document.querySelector('.apiContent');
-                        // limpiamos el contenedor
-                        content.innerHTML = '';
-                        if (articles.length == 0) {
-                            content.innerHTML = 'No se encontraron resultados.';
-                        } else {
-                            articles.forEach((article) => {
-                                // Armamos nuestra carta 
-                                let templateAux = template;
-                                templateAux = templateAux.replace('__imagen__', article.urlToImage);
-                                templateAux = templateAux.replace('__titulo__', article.title);
-                                templateAux = templateAux.replace('__autor__', article.author);
-                                templateAux = templateAux.replace('__descripcion__', article.description);
-                                templateAux = templateAux.replace('__link__', article.url);
+        fetch(urlFinal, {
+            method: 'POST',//POST Es para Agrear un nuevo registro
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ id: (Number(ultimoId) + 1) + "", name: inputNombre })
+        }).then((reponse) => 
+            response.json()
+                .then((data) => console.log(data))
+        )
+    })
 
-                                // Agregamos nuestra carta al DOM
-                                // content.innerHTML = content.innerHTML + templateAux;
-                                content.innerHTML += templateAux;
-                            })
-                        }
-                    })
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+    // Aqui vamos a actualizar un usuario
+    // Recuperar el formulario
+    const formActualizar = document.querySelector('#formApiPut');
+
+    // Escuchamos el evento Submit o de envio
+    formActualizar.addEventListener('submit', function (event) {
+        event.preventDefault();
+        // Recuperamos los valores de los inputs
+        let inputNombre = document.querySelector('#nombreActualizar').value;
+        let inputId = document.querySelector('#idUsuario').value;
+        if (inputId == 0) {
+            alert("Seleccione un id");
+            return;
+        }
+        const urlFinal = urlBase + 'users/' + inputId;
+
+        // let form = new FormData();
+        // form.append('nombre', inputNombre);
+        // Hacemos la peticion HTTP
+        fetch(urlFinal, {
+            method: 'PUT', //PUT Es para Actualizar un registro que ya existe
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ id: inputId + "", name: inputNombre })
+        }).then((reponse) => response.json()
+        .then((data) => {
+            console.log(data);
+        }))
     })
 })
+
+// FUNCION ES PARA OBTENER LOS DATOS
+function getData() {
+    const url = urlBase + 'users';
+    fetch(url)
+        .then((response) => {
+            response
+                .json()
+                .then((data) => {
+                    const content = document.querySelector('.apiContent');
+                    // limpiamos el contenedor
+                    content.innerHTML = '';
+                    if (data.length == 0) {
+                        content.innerHTML = 'No se encontraron resultados.';
+                    } else {
+                        usuarios = data;
+                        ultimoId = data.reduce(function(prev, current){
+                            if (ultimoId.id > current.id) {
+                                return ultimoId.id;
+                            } else {
+                                return current.id;
+                            }
+                        }, ultimoId);
+
+                        let options = '';
+                        data.forEach((usuario) => {
+                            options += `<option value="${usuario.id}">${usuario.id} - ${usuario.name}</option>`;
+                            // Armamos nuestra carta 
+                            let templateAux = template;
+                            templateAux = templateAux.replace('__id__', usuario.id);
+                            templateAux = templateAux.replace('__nombre__', usuario.name);
+
+                            // Agregamos nuestra carta al DOM
+                            // content.innerHTML = content.innerHTML + templateAux;
+                            content.innerHTML += templateAux;
+                        })
+
+                        let select = document.querySelector('#idUsuario');
+                        select.innerHTML = `
+                        <option value="0" selected disabled>Seleccione un id</option>
+                        ` +options;
+                    }
+                })
+        })
+}
